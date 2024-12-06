@@ -67,6 +67,54 @@ terraform destroy
 
 Terraform will prompt for confirmation. Type yes to proceed.
 
+# Using the Repository as a Module for EC2 Creation
+
+If you want to use this repository as a module to create an EC2 instance, you can reference it using either HTTPS or SSH:
+
+## Using HTTPS:
+
+hcl
+module "EC2" {
+  source = "git::https://example.com/vpc.git"
+}
+
+## Using SSH:
+hcl
+module "EC2" {
+  source = "git::ssh://username@example.com/storage.git"
+}
+
+Setting Up Your Application
+
+Next, create a folder for your application in your repository and add a Dockerfile inside this folder.
+
+Create a folder for your app (e.g., my-app/).
+Add a Dockerfile to that folder, specifying how the container should be built.
+Building and Running the Docker Container
+
+Build the Docker container:
+
+bash
+docker build -t my-app .
+
+This command will build the Docker image using the Dockerfile in your current directory.
+
+Running Terraform
+Once the Docker container is built, you can proceed with Terraform:
+
+Initialize Terraform in your project directory:
+
+bash
+terraform init
+
+Plan the infrastructure to see which variables are required by the module:
+
+bash
+terraform plan
+
+This will show you which variables need to be provided for the module to create the EC2 instance and other resources.
+## Enjoy!
+
 ⚡ Key Notes
 
 Make sure your AWS key pair is specified correctly in the Terraform configuration to allow SSH access to the EC2 instance.
