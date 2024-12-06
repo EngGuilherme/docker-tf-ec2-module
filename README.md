@@ -75,7 +75,7 @@ If you want to use this repository as a module to create an EC2 instance, you ca
 
 hcl
 module "EC2" {
-  source = "git::https://example.com/vpc.git"
+  source = "git::https://example.com/vpc.git](https://github.com/EngGuilherme/docker-tf-ec2-module.git"
 }
 
 ## Using SSH:
