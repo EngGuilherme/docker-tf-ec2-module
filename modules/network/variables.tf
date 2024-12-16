@@ -17,3 +17,9 @@ variable "region" {
   type        = string
   description = "Region of the project"
 }
+
+variable "instance_count" {
+  type        = number
+  description = "number of instances"
+
+}

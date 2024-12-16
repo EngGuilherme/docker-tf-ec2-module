@@ -46,3 +46,9 @@ variable "private_key" {
   description = "private key diretory"
 
 }
+
+variable "instance_count" {
+  type        = number
+  description = "Number of EC2 instances to create"
+  default     = 1
+}

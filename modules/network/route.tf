@@ -17,6 +17,7 @@ resource "aws_route" "default_route" {
 
 # Associating route to the subnet
 resource "aws_route_table_association" "public_association" {
-  subnet_id      = aws_subnet.main_subnet.id
+  count          = length(aws_subnet.main_subnet)  # Usar count aqui para iterar sobre as sub-redes
+  subnet_id      = aws_subnet.main_subnet[count.index].id  # Acessar a sub-rede específica usando count.index
   route_table_id = aws_route_table.public.id
 }

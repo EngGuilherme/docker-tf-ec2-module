@@ -2,9 +2,10 @@
 resource "aws_instance" "web_server" {
   ami                    = var.ami # AMI Ubuntu
   instance_type          = var.instance_type
-  subnet_id              = module.ec2_network.subnet_id
+  subnet_id              = module.ec2_network.subnet_ids[count.index % length(module.ec2_network.subnet_ids)]
   vpc_security_group_ids = [aws_security_group.web_sg.id]
-  key_name               = var.key_name # key pair
+  key_name               = var.key_name       # key pair
+  count                  = var.instance_count # Group of instances
 
   # user_data script to install Apache
   user_data = <<-EOF
@@ -56,7 +57,9 @@ EOF
 
   tags = merge(
 
-    var.tags, { Name = "${var.project_name}-web-server" }
+    var.tags, {
+      Name = "${var.project_name}-web-server-${count.index}"
+    }
 
   )
 
